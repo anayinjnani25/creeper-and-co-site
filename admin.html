@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://wevvvgbkzoodelvadrlq.supabase.co wss://wevvvgbkzoodelvadrlq.supabase.co https://cdn.jsdelivr.net; img-src 'self' data: https://*.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>Studio admin · Creeper &amp; Co.</title>
+<script src="js/admin-theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<!-- the logo's & is Fraunces italic; only that one glyph is loaded -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&text=%26&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232A1A3D'/%3E%3Cpath d='M50.5 12.5C46 8.6 40.2 6.5 33.6 6.5 19 6.5 6.5 17.9 6.5 32.6S18.7 58.5 33.4 58.5c6.9 0 12.9-2.4 17.4-6.6l-3.4-5.2c-3.5 3-7.7 4.6-12.4 4.6-9.6 0-16-8.3-16-18.6S25.3 13.8 34.8 13.8c3.9 0 7.4 1.2 10.2 3.4l2.2 6.2h3.3z' fill='%23F4F0FA'/%3E%3Ccircle cx='50.6' cy='51' r='3.1' fill='%23D9824E'/%3E%3Ctext x='39' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='25' fill='%23D9824E'%3E%26amp;%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<!-- Studio admin: requests, clients and conversations. Only admins get data back (row level security);
+     everyone else is sent to My projects. All screens are drawn by js/admin.js. -->
+<header class="bar">
+  <a class="brand" href="#/dashboard" aria-label="Studio admin home">
+    <span class="mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M50.5 12.5C46 8.6 40.2 6.5 33.6 6.5 19 6.5 6.5 17.9 6.5 32.6S18.7 58.5 33.4 58.5c6.9 0 12.9-2.4 17.4-6.6l-3.4-5.2c-3.5 3-7.7 4.6-12.4 4.6-9.6 0-16-8.3-16-18.6S25.3 13.8 34.8 13.8c3.9 0 7.4 1.2 10.2 3.4l2.2 6.2h3.3z" fill="currentColor"/><circle cx="50.6" cy="51" r="3.1" fill="#D9824E"/><text x="36" y="44" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="25" fill="#D9824E">&amp;</text></svg></span>
+    <span><b>Creeper <span class="amp">&amp;</span> Co.</b><small>Studio admin</small></span>
+  </a>
+  <nav class="tabs" id="tabs" aria-label="Admin sections">
+    <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+    <a href="#/projects" data-route="projects">Projects <span class="count" id="c-projects">0</span></a>
+    <a href="#/messages" data-route="messages">Messages <span class="count" id="c-messages">0</span></a>
+    <a href="#/clients" data-route="clients">Clients</a>
+    <a href="#/reviews" data-route="reviews">Reviews <span class="count" id="c-reviews">0</span></a>
+  </nav>
+  <div class="right">
+    <button class="icon-btn" id="bell" type="button" aria-label="Requests that need a reply"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="dot hidden" id="bellDot"></span></button>
+    <div class="team" id="team" aria-label="Studio team"></div>
+    <span id="me" class="av me"></span>
+  </div>
+</header>
+
+<nav class="dock" aria-label="Tools">
+  <button type="button" id="d-search" aria-label="Search (Ctrl K)" title="Search  ·  Ctrl K"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <button type="button" id="d-inbox" aria-label="Needs a reply" title="Needs a reply"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 13h4l2 3h4l2-3h4"/><path d="M5 5h14l1 8v6H4v-6z"/></svg><span class="badge hidden" id="d-badge"></span></button>
+  <button type="button" id="d-refresh" aria-label="Refresh" title="Refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
+  <hr>
+  <a href="./" aria-label="Open the website" title="Open the website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></a>
+  <button type="button" id="d-theme" aria-label="Switch light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+  <button type="button" id="d-out" aria-label="Sign out" title="Sign out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h4v16h-4"/><path d="M10 8l-4 4 4 4M6 12h10"/></svg></button>
+</nav>
+
+<main id="view"><p class="loading">Loading the studio…</p></main>
+
+<div class="scrim hidden" id="scrim"></div>
+<aside class="drawer hidden" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle"></aside>
+<div class="palette hidden" id="palette" role="dialog" aria-modal="true" aria-label="Search">
+  <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="pq" placeholder="Search requests, clients, messages…" autocomplete="off"></label>
+  <ul id="pres"></ul>
+</div>
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://wevvvgbkzoodelvadrlq.supabase.co wss://wevvvgbkzoodelvadrlq.supabase.co https://cdn.jsdelivr.net; img-src 'self' data: https://*.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>My projects · Creeper &amp; Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<!-- the logo's & is Fraunces italic; only that one glyph is loaded -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&text=%26&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/portal.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232A1A3D'/%3E%3Cpath d='M50.5 12.5C46 8.6 40.2 6.5 33.6 6.5 19 6.5 6.5 17.9 6.5 32.6S18.7 58.5 33.4 58.5c6.9 0 12.9-2.4 17.4-6.6l-3.4-5.2c-3.5 3-7.7 4.6-12.4 4.6-9.6 0-16-8.3-16-18.6S25.3 13.8 34.8 13.8c3.9 0 7.4 1.2 10.2 3.4l2.2 6.2h3.3z' fill='%23F4F0FA'/%3E%3Ccircle cx='50.6' cy='51' r='3.1' fill='%23D9824E'/%3E%3Ctext x='39' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='25' fill='%23D9824E'%3E%26amp;%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<canvas class="bg" id="bg" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a href="./" class="brand" aria-label="Creeper &amp; Co. home">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M50.5 12.5C46 8.6 40.2 6.5 33.6 6.5 19 6.5 6.5 17.9 6.5 32.6S18.7 58.5 33.4 58.5c6.9 0 12.9-2.4 17.4-6.6l-3.4-5.2c-3.5 3-7.7 4.6-12.4 4.6-9.6 0-16-8.3-16-18.6S25.3 13.8 34.8 13.8c3.9 0 7.4 1.2 10.2 3.4l2.2 6.2h3.3z" fill="currentColor"/><circle cx="50.6" cy="51" r="3.1" fill="var(--accent, #D9824E)"/><text x="36" y="44" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="25" fill="#D9824E">&amp;</text></svg>
+    Creeper <span class="amp">&amp;</span> Co.
+  </a>
+  <nav class="links"><a href="./">← Back to the website</a></nav>
+  <div class="who">
+    <span id="avatar" class="avatar"></span>
+    <div class="who-text"><div class="name" id="name"></div><div class="role" id="role"></div></div>
+    <button class="btn ghost small magnetic" id="signout" type="button">Sign out</button>
+  </div>
+</header>
+
+<div class="portal" id="portal">
+  <aside class="side glass">
+    <div class="side-head">
+      <p class="eyebrow" id="listEyebrow">Client portal</p>
+      <h1 id="listTitle">My <em>projects</em></h1>
+      <div class="row">
+        <button class="btn small magnetic" id="newBtn" type="button">+ New request</button>
+        <select id="filter" aria-label="Filter by status">
+          <option value="active">Active</option>
+          <option value="all">All</option>
+          <option value="open">Open</option>
+          <option value="in_progress">In progress</option>
+          <option value="waiting_on_client">Waiting on client</option>
+          <option value="resolved">Resolved</option>
+          <option value="closed">Closed</option>
+        </select>
+      </div>
+    </div>
+    <ul class="list" id="list"></ul>
+    <nav class="side-legal" aria-label="Legal"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a><a href="contact.html">Contact</a></nav>
+  </aside>
+
+  <main class="main glass" id="main">
+    <!-- New request -->
+    <section class="panel" id="newPanel">
+      <button class="btn ghost small back-btn" type="button" data-back>← Projects</button>
+      <p class="eyebrow">Start a project</p>
+      <h2>Tell us what you <em>need.</em></h2>
+      <p class="sub">We usually reply within one working day.</p>
+      <form class="form" id="newForm">
+        <div class="field"><label for="n-cat">What is it about?</label>
+          <select id="n-cat" name="category">
+            <option value="new_project">A new project</option>
+            <option value="change_request">A change to an existing project</option>
+            <option value="bug">Something is broken</option>
+            <option value="question">A question</option>
+          </select>
+        </div>
+        <div class="field"><label for="n-title">Short title</label><input id="n-title" name="title" required minlength="3" maxlength="140" placeholder="e.g. Brand + website for our café"></div>
+        <div class="field"><label for="n-desc">Details</label><textarea id="n-desc" name="description" required maxlength="5000" placeholder="Goals, deadlines, links, budget… anything that helps."></textarea></div>
+        <button class="btn magnetic" type="submit">Send request <span>→</span></button>
+      </form>
+    </section>
+
+    <!-- Request detail: a chat with the studio, like the admin inbox (js/portal.js) -->
+    <section class="chat hidden" id="detail" aria-labelledby="d-title">
+      <header class="ch-head">
+        <button class="ch-back" type="button" data-back aria-label="Back to projects">←</button>
+        <span class="studio-av" aria-hidden="true"><svg viewBox="0 0 64 64"><path fill="currentColor" d="M50.5 12.5C46 8.6 40.2 6.5 33.6 6.5 19 6.5 6.5 17.9 6.5 32.6S18.7 58.5 33.4 58.5c6.9 0 12.9-2.4 17.4-6.6l-3.4-5.2c-3.5 3-7.7 4.6-12.4 4.6-9.6 0-16-8.3-16-18.6S25.3 13.8 34.8 13.8c3.9 0 7.4 1.2 10.2 3.4l2.2 6.2h3.3z"/><circle cx="50.6" cy="51" r="3.1" fill="#D9824E"/><text x="36" y="44" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="25" fill="#D9824E">&amp;</text></svg></span>
+        <div class="ch-who"><b id="d-title"></b><small id="d-ref"></small></div>
+        <span id="d-status"></span>
+      </header>
+      <div class="ch-scroll" id="chScroll"><div class="thread" id="thread"></div></div>
+      <div class="ch-compose">
+        <form class="compose-box" id="replyForm">
+          <textarea id="r-body" rows="1" required maxlength="5000" placeholder="Write a message…" aria-label="Message"></textarea>
+          <button class="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+        </form>
+        <p class="compose-meta" id="composeMeta"><span><kbd>Enter</kbd> to send, <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line</span><span>Only you and the studio can see this chat</span></p>
+        <p class="closed-note hidden" id="closedNote">This request is closed. Start a new one if you need anything else.</p>
+      </div>
+      <aside class="ch-side" id="d-side" aria-label="About this request"></aside>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="js/portal.js"></script>
+</body>
+</html>

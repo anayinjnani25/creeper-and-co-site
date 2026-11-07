@@ -1,0 +1,51 @@
+/* "Let's build something ___": a standing desk calendar (js/calendar.js). A metal-ringed binding bar,
+   an easel stand behind, a thick stack of page edges, and pages that turn over the rings as you scroll.
+   The turning page is three strips that bend progressively, so it curls rather than swinging flat. */
+.calendar { position: relative; width: min(420px, 88%); --pw: 100%; }
+.cal-string { position: absolute; z-index: 0; left: 50%; bottom: calc(100% - 26px); width: 1.5px; height: 140vh; translate: -50% 0; background: linear-gradient(transparent, rgba(246,238,220,.5) 30%); }
+.cal-scene { position: relative; perspective: 1600px; perspective-origin: 50% 20%; }
+.cal-body { position: relative; transform-style: preserve-3d; transform: rotateX(9deg) rotateY(-13deg); }
+
+/* easel stand: a board leaning back from the binding, seen past the right edge */
+.cal-easel { position: absolute; left: 2%; right: 2%; top: 14px; height: 108%; transform-origin: 50% 0; transform: translateZ(-2px) rotateX(-34deg);
+  background: linear-gradient(180deg, #2E1D44, #1D1229); border-radius: 0 0 6px 6px; box-shadow: inset 0 0 0 1px rgba(205,190,245,.08); }
+
+/* binding bar with metal rings */
+.cal-bind { position: relative; z-index: 3; height: 34px; border-radius: 8px 8px 3px 3px; transform: translateZ(6px);
+  background: linear-gradient(#45305F, #2A1A3D 70%, #22152F); box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 -2px 0 rgba(0,0,0,.3), 0 6px 10px rgba(0,0,0,.4);
+  display: flex; justify-content: space-evenly; padding: 0 16px; }
+.cal-bind::before { content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: .35; mix-blend-mode: overlay; pointer-events: none;
+  background: repeating-radial-gradient(circle at 30% 40%, rgba(255,255,255,.12) 0 1px, transparent 1px 3px); } /* leather grain */
+.cal-bind::after { content: ""; position: absolute; left: 50%; top: 11px; width: 12px; height: 12px; translate: -50% 0; border-radius: 50%; background: #0B0612; box-shadow: inset 0 1px 2px rgba(0,0,0,.9), 0 0 0 2px #B9AFC9, 0 0 0 3px rgba(0,0,0,.4); }
+.cal-bind i { position: relative; width: 12px; height: 30px; margin-top: -17px; border-radius: 7px; border: 3.5px solid #D8D0E4; border-bottom-color: transparent; border-left-color: #8F86A3;
+  box-shadow: inset -1px 0 0 rgba(255,255,255,.5), 1px 2px 2px rgba(0,0,0,.4); }
+.cal-bind i:nth-child(6) { visibility: hidden; } /* room for the hanging hole */
+
+/* the pad: page stack edges under the current page */
+.cal-pad { position: relative; aspect-ratio: 5 / 3.7; container-type: inline-size; margin-top: -5px; transform-style: preserve-3d; }
+.cal-stack { position: absolute; left: 0; right: 0; top: 0; bottom: -12px; border-radius: 0 0 5px 5px; transform: translateZ(-1.5px);
+  background: repeating-linear-gradient(180deg, #E9E1F2 0 1.5px, #CFC4DE 1.5px 3px); box-shadow: 0 30px 50px -18px rgba(0,0,0,.75); }
+.cal-shadow { position: absolute; left: 6%; right: 2%; bottom: -34px; height: 26px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent); filter: blur(4px); }
+
+/* a page: content laid out as before */
+.cal-page { position: absolute; inset: 0; border-radius: 0 0 5px 5px; background: #F6F1FB; color: var(--ink); overflow: hidden;
+  display: grid; grid-template-rows: auto 1fr auto; padding: 7cqw 7cqw 5cqw; background-image: linear-gradient(rgba(42,26,61,.06), transparent 28%), linear-gradient(90deg, rgba(42,26,61,.04), transparent 12%, transparent 88%, rgba(42,26,61,.05)); }
+.cal-under { position: absolute; inset: 0; transform: translateZ(.5px); }
+.cal-under .cal-page::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(170deg, rgba(14,8,22,.55), rgba(14,8,22,.1) 60%, transparent); opacity: var(--shade, 0); }
+
+/* the turning page: three strips hinged one under another (transforms set by the script) */
+.cal-turn { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; transform: translateZ(1.5px); } /* just above the page underneath, so they never flicker through each other */
+.cal-strip { position: absolute; left: 0; right: 0; top: 0; margin-bottom: -1px; padding-bottom: 1px; box-sizing: content-box; transform-origin: 50% 0; transform-style: preserve-3d; }
+.cal-strip .sf, .cal-strip .sb { position: absolute; inset: 0; overflow: hidden; opacity: var(--fade, 1); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.cal-strip .sf .cal-page { bottom: auto; height: var(--ph); top: calc(var(--off) * -1); border-radius: 0; }
+.cal-strip.last .sf .cal-page, .cal-strip.last .sb { border-radius: 0 0 5px 5px; }
+.cal-strip .sb { transform: rotateY(180deg) rotateZ(180deg); background: linear-gradient(180deg, #E4DCEE, #D8CEE6); }
+.cal-strip .sf::after, .cal-strip .sb::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(14,8,22,0), rgba(14,8,22,.35)); opacity: var(--lit, 0); }
+
+.cal-no, .cal-foot { font: 600 max(10px, 3.1cqw) var(--mono); letter-spacing: .14em; text-transform: uppercase; color: rgba(14,8,22,.55); }
+.cal-no { text-align: left; }
+.cal-foot { text-align: right; }
+.cal-word { align-self: center; justify-self: center; font-family: var(--serif); text-transform: uppercase; line-height: 1; letter-spacing: -.01em; white-space: nowrap; font-size: min(17cqw, calc(118cqw / (var(--len) + 1))); }
+.cal-word b { color: var(--tangerine); font-weight: 400; }
+
+@media (max-width: 860px) { .cal-body { transform: rotateX(8deg) rotateY(-9deg); } }

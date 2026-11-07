@@ -1,0 +1,72 @@
+/* How we work: a ticket printer. When it scrolls into view the slot prints the four stages as one
+   long strip of tickets (js/printer.js). Brand palette: tangerine panel, cream paper, night ink. */
+/* copy and printer sit side by side as one centred pair; the copy stays in view while the strip prints */
+.how { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 400px); justify-content: center; gap: clamp(40px, 8vw, 140px); align-items: start; margin-top: 140px; }
+.how-copy { position: sticky; top: 16vh; }
+.how-copy h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(36px, 4.6vw, 64px); letter-spacing: -.035em; line-height: 1; margin-top: 14px; }
+.how-copy h3 em { font-style: italic; color: var(--tangerine); }
+.how-copy p { margin-top: 18px; max-width: 420px; color: var(--muted); line-height: 1.6; }
+/* the four stages as a timeline: a rail with a copper fill, each row lights up as its ticket prints */
+.how-legend { position: relative; display: grid; gap: 0; margin-top: 40px; list-style: none; max-width: 440px; }
+.how-legend::before { content: ""; position: absolute; left: 5px; top: 22px; bottom: 22px; width: 1px; background: var(--line); }
+.how-legend li { position: relative; display: grid; grid-template-columns: 11px 40px 1fr auto; align-items: baseline; gap: 0 16px; padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--muted); transition: color .4s; }
+.how-legend li::before { content: ""; align-self: center; width: 11px; height: 11px; border-radius: 50%; background: var(--night); border: 1.5px solid currentColor; transition: background .4s, border-color .4s, box-shadow .4s; }
+.how-legend b { font: 600 11px var(--mono); letter-spacing: .14em; }
+.how-legend span { font: 400 clamp(24px, 2.4vw, 32px)/1 var(--serif); letter-spacing: -.02em; }
+.how-legend small { font: 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.how-legend li.done { color: var(--lilac); }
+.how-legend li.done::before { background: var(--tangerine); border-color: var(--tangerine); }
+.how-legend li.done b { color: var(--tangerine); }
+.how-legend li.now::before { box-shadow: 0 0 0 5px rgba(217,130,78,.22); }
+.how-legend li.now span { font-style: italic; color: var(--tangerine); }
+
+/* the machine */
+.printer { position: relative; justify-self: center; width: min(100%, 380px); padding: 34px 26px 0; isolation: isolate; }
+/* only the head is the machine; the paper hangs free below it */
+.printer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 120px; z-index: -1; border-radius: 30px 30px 14px 14px;
+  background: radial-gradient(ellipse at 30% 0%, #E39A6C, #CC7340 60%, #A85A2E); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), inset 0 -4px 0 rgba(0,0,0,.18), 0 30px 60px -30px rgba(0,0,0,.7); }
+.printer::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 120px; border-radius: 30px 30px 14px 14px; pointer-events: none; z-index: -1; opacity: .35; mix-blend-mode: multiply;
+  background: repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,.08) 0 1px, transparent 1px 3px); } /* powder-coat grain */
+.grille { width: 46%; height: 34px; margin: 0 auto 22px; background: radial-gradient(circle, rgba(60,18,4,.55) 2.2px, transparent 2.6px) 0 0 / 10px 10px; }
+.slot { position: relative; height: 34px; border-radius: 10px; background: linear-gradient(#1C1424, #120B1A); box-shadow: inset 0 3px 6px rgba(0,0,0,.6), 0 2px 0 rgba(255,255,255,.25); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
+.slot i { width: 10px; height: 10px; border-radius: 50%; background: #F7C35C; box-shadow: 0 0 8px rgba(247,195,92,.8); }
+.slot i.off { background: #4A3A2A; box-shadow: none; }
+.printer.printing .slot i:last-child { animation: blink .25s steps(2) infinite; }
+@keyframes blink { 50% { background: #4A3A2A; box-shadow: none; } }
+.mouth { position: absolute; left: 30px; right: 30px; bottom: 9px; height: 5px; border-radius: 3px; background: #050308; box-shadow: 0 0 10px rgba(217,130,78,.35); }
+.printer.printing .slot { animation: hum .12s linear infinite; }
+@keyframes hum { 50% { transform: translateY(.6px); } }
+
+/* paper coming out of the mouth */
+.feed { position: relative; z-index: -2; margin: -9px 28px 0; overflow: hidden; height: 0; }
+.strip { list-style: none; position: absolute; left: 0; right: 0; top: 0; filter: drop-shadow(0 10px 14px rgba(0,0,0,.35)); }
+.ticket { --paper: #F6EEDC; --ink: #1A1024; position: relative; background: var(--paper); color: var(--ink); padding: 18px 22px 20px;
+  /* notches in both sides, like a torn-off stub */
+  -webkit-mask: radial-gradient(circle 11px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 11px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat; }
+.ticket + .ticket { border-top: 2px dotted rgba(26,16,36,.35); }
+.ticket::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.6), transparent 40%), repeating-linear-gradient(0deg, rgba(90,60,30,.03) 0 1px, transparent 1px 3px); }
+.t-stars { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink); letter-spacing: 0; opacity: .85; }
+.t-top { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; font: 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.t-top b { color: #B9622F; font-weight: 400; }
+.ticket h4 { font: clamp(40px, 4vw, 52px)/.9 "Archivo Black", var(--sans); text-transform: uppercase; letter-spacing: -.01em; margin: 10px 0 10px; }
+.ticket p { font-size: 14px; line-height: 1.5; color: #3B3046; }
+.t-info { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; margin-top: 16px; padding: 8px 10px; border-radius: 6px; background: #F2C27A; }
+.t-code { display: grid; font: 600 18px/0.95 var(--sans); color: #A4542A; text-align: center; }
+.t-meta { font: 10px/1.35 "Archivo Black", var(--sans); text-transform: uppercase; color: var(--ink); }
+.t-meta small { display: block; font: 9px var(--mono); letter-spacing: .08em; opacity: .7; }
+.t-bar { width: 58px; height: 30px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 3px, var(--ink) 3px 4px, transparent 4px 7px, var(--ink) 7px 10px, transparent 10px 11px); }
+.t-diamonds { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
+.t-diamonds i { width: 6px; height: 6px; background: #B9622F; transform: rotate(45deg); }
+.ticket:nth-child(2) .t-info { background: #CDBEF5; }
+.ticket:nth-child(3) .t-info { background: #F6B8C8; }
+.ticket:nth-child(4) .t-info { background: #B9DCCF; }
+.tear { text-align: center; font: 10px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+@media (max-width: 860px) {
+  .how { grid-template-columns: 1fr; margin-top: 100px; }
+  .how-copy { position: static; }
+  .how-legend span { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .printer.printing .slot, .printer.printing .slot i { animation: none; } }

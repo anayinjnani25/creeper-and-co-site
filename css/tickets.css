@@ -1,0 +1,48 @@
+/* What we do: four paper tickets. Odd ones are torn kraft "admit one" stubs with a printed serial,
+   even ones are cream tickets with scalloped edges, a perforated tear line and a barcode stub.
+   The torn edges are drawn per ticket by a small script (see "Tickets" in index.html). */
+.tix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 30px; }
+.tk { --stub: 108px; position: relative; filter: drop-shadow(0 14px 18px rgba(42,26,61,.18)) drop-shadow(0 2px 2px rgba(42,26,61,.14));
+  transform: rotate(var(--tilt, 0deg)); transition: transform .5s var(--ease); }
+.tk:hover { transform: rotate(0deg) translateY(-8px) scale(1.015); }
+.tk-paper { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); min-height: 230px; color: #1E1230; }
+/* paper grain over everything */
+.tk-paper::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .5;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .25 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.tk-main { position: relative; padding: 26px 26px 24px 30px; display: grid; grid-template-rows: auto 1fr auto; gap: 10px; }
+.tk-top { display: flex; justify-content: space-between; align-items: baseline; font: 11px var(--mono); letter-spacing: .16em; text-transform: uppercase; opacity: .7; }
+.tk h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 2.6vw, 38px); letter-spacing: -.02em; line-height: 1; align-self: end; }
+.tk p { font-size: 14.5px; line-height: 1.55; opacity: .78; max-width: 40ch; }
+.tk-num { font-family: var(--serif); font-size: 15px; letter-spacing: 0; opacity: 1; color: var(--tangerine); }
+.tk-stub { position: relative; display: grid; place-items: center; }
+
+/* kraft "admit one": torn edges (clip-path set by script), double printed border, vertical serial */
+.tk-paper { --ink: #1E1230; }
+.tk.kraft .tk-paper, .tk.cream .tk-paper { background: linear-gradient(170deg, #FFFFFF, #F7F3FC); color: var(--ink); } /* all four on the same white paper */
+.tk.kraft .tk-main { margin: 16px 0 16px 18px; padding: 14px 22px 14px 18px; border: 2px solid var(--ink); }
+.tk.kraft .tk-stub { margin: 16px 18px 16px 0; border: 2px solid var(--ink); border-left: 0; }
+.tk.kraft .serial { writing-mode: vertical-rl; font: 600 30px/1 "Courier New", var(--mono); letter-spacing: .12em; color: var(--ink); }
+.tk.kraft .admit { position: absolute; top: 10px; left: 50%; translate: -50% 0; font: 9px var(--mono); letter-spacing: .2em; white-space: nowrap; opacity: .6; }
+
+/* cream ticket: scalloped short ends, notches top and bottom of the perforation, barcode stub */
+.tk.cream .tk-paper {
+  /* every layer is opaque except its own cut-outs; intersecting them gives scalloped ends plus the two notches */
+  -webkit-mask: radial-gradient(circle 7px at 0 11px, #0000 97%, #000) 0 0 / 100% 22px repeat-y, radial-gradient(circle 7px at 100% 11px, #0000 97%, #000) 0 0 / 100% 22px repeat-y, radial-gradient(circle 13px at calc(100% - var(--stub)) 0, #0000 97%, #000) 0 0 / 100% 100% no-repeat, radial-gradient(circle 13px at calc(100% - var(--stub)) 100%, #0000 97%, #000) 0 0 / 100% 100% no-repeat; -webkit-mask-composite: source-in;
+          mask: radial-gradient(circle 7px at 0 11px, #0000 97%, #000) 0 0 / 100% 22px repeat-y, radial-gradient(circle 7px at 100% 11px, #0000 97%, #000) 0 0 / 100% 22px repeat-y, radial-gradient(circle 13px at calc(100% - var(--stub)) 0, #0000 97%, #000) 0 0 / 100% 100% no-repeat, radial-gradient(circle 13px at calc(100% - var(--stub)) 100%, #0000 97%, #000) 0 0 / 100% 100% no-repeat; mask-composite: intersect; }
+.tk.cream .tk-main { padding-left: 34px; }
+.tk.cream .tk-stub::before { content: ""; position: absolute; left: -1px; top: 18px; bottom: 18px; border-left: 5px dotted rgba(42,26,61,.55); }
+.barcode { display: grid; grid-template-columns: auto auto; gap: 8px; align-items: center; transform: rotate(90deg) translateY(10px); }
+.barcode i { display: block; width: 150px; height: 46px;
+  background: repeating-linear-gradient(90deg, #1E1230 0 2px, #0000 2px 3px, #1E1230 3px 4px, #0000 4px 7px, #1E1230 7px 10px, #0000 10px 11px, #1E1230 11px 12px, #0000 12px 15px); }
+.barcode span { grid-column: 1; font: 11px var(--mono); letter-spacing: .14em; text-align: center; }
+
+@media (max-width: 860px) {
+  .tix { grid-template-columns: 1fr; gap: 26px; }
+  .tk { --stub: 82px; }
+  .tk.kraft .serial { font-size: 22px; }
+  .tk.kraft .admit { font-size: 7px; letter-spacing: .1em; }
+  .barcode { transform: rotate(90deg) translateY(12px); }
+  .barcode i { width: 120px; height: 36px; }
+  .tk-main { padding: 20px 18px 18px 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .tk, .tk:hover { transform: none; } }
