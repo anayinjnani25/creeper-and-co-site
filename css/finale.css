@@ -1,0 +1,39 @@
+/* The second half changes direction (js/finale.js): Reviews and Contact are two faces of a cube that turns as
+   you scroll, Contact holds still for its form, then the matchbox wall slides in from the right over it.
+   Only on screens big enough to hold each section whole; phones and reduced motion get the normal page. */
+.finale-on .finale { position: relative; height: 420vh; }
+.finale-on .fin-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; perspective: 1800px; background: #05030A; }
+.finale-on .fin-box { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(-50vw) rotateY(var(--ry, 0deg)); will-change: transform; }
+.finale-on .fin-face { position: absolute; inset: 0; height: 100vh; height: 100svh; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.finale-on .fin-a { transform: translateZ(50vw); }
+.finale-on .fin-b { transform: rotateY(90deg) translateZ(50vw); }
+/* a light catches each face as it turns */
+.finale-on .fin-face::after { content: ""; position: absolute; inset: 0; z-index: 30; pointer-events: none; background: #000; opacity: var(--shade, 0); }
+/* once the turn has landed, drop the 3D so the form is crisp and normal */
+.finale-on .fin-stage.flat .fin-box { transform: none; }
+.finale-on .fin-stage.flat .fin-a { visibility: hidden; }
+.finale-on .fin-stage.flat .fin-b { transform: translateX(calc(var(--k, 0) * -18%)); filter: brightness(calc(1 - var(--k, 0) * .5)); }
+
+/* sized to fit one screen as cube faces */
+.finale-on .reviews.fin-face { padding: 84px 0 20px; display: flex; flex-direction: column; }
+.finale-on .reviews .rv-title { font-size: clamp(44px, 6vw, 92px); }
+.finale-on .reviews .rv-stage { flex: 1; height: auto; min-height: 0; }
+.finale-on .reviews .rv-foot { margin-top: 0; }
+.finale-on .contact.fin-face { padding: 96px 0 30px; display: grid; align-content: center; }
+
+/* the matchbox wall, waiting off to the right */
+.finale-on .matches.fin-c { position: absolute; inset: 0; z-index: 5; height: 100vh; height: 100svh; min-height: 0; transform: translateX(calc((1 - var(--k, 0)) * 101%));
+  box-shadow: -50px 0 90px -30px rgba(0,0,0,.7); will-change: transform; }
+.finale-on .matches.fin-c.parked { visibility: hidden; }
+
+/* which way the page is moving */
+.dir-arrow { position: fixed; z-index: 45; right: 22px; bottom: 22px; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(21,25,70,.7); border: 1.5px solid var(--tangerine); color: var(--tangerine); font-size: 22px; line-height: 1; backdrop-filter: blur(8px);
+  transition: transform .6s cubic-bezier(.22,1,.36,1), opacity .4s; pointer-events: none; }
+.dir-arrow span { display: block; transition: transform .6s cubic-bezier(.22,1,.36,1); }
+:root[data-theme="light"] .dir-arrow { background: rgba(235,225,213,.8); }
+@media (max-width: 860px), (prefers-reduced-motion: reduce) { .dir-arrow { display: none; } }
+
+/* full-height matchbox wall: keep its line of copy clear of the nav */
+.finale-on .matches.fin-c .m-copy { top: clamp(100px, 13vh, 130px); }
+.finale-on .matches.fin-c .mainbox { top: 62%; }

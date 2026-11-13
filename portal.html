@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://wevvvgbkzoodelvadrlq.supabase.co wss://wevvvgbkzoodelvadrlq.supabase.co https://cdn.jsdelivr.net; img-src 'self' data: https://*.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>My projects · Stydio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<!-- the logo's & is Fraunces italic; only that one glyph is loaded -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&text=%26&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/portal.css?v=20261113110417">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=20261113110417">
+</head>
+<body>
+<canvas class="bg" id="bg" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a href="./" class="brand" aria-label="Stydio home"><svg class="wm" viewBox="-20 -850 4093.2 1106.4" width="4093.2" height="1106.4" aria-hidden="true"><path fill="currentColor" d="M363 10Q279 10 192.5-13.5Q106-37 30-85L30-85L135-228Q181-195 246-176.5Q311-158 358-158L358-158Q403-158 427.5-170.5Q452-183 452-203L452-203Q452-219 440-228Q428-237 407-237L407-237Q394-237 377.5-236Q361-235 351-234L351-234Q299-228 244-228L244-228Q155-228 99.5-261.5Q44-295 44-371L44-371Q44-459 127-507.5Q210-556 371-556L371-556Q450-556 530.5-533.5Q611-511 673-466L673-466L558-350Q501-380 451.5-392.5Q402-405 352-405L352-405Q317-405 292-391Q267-377 267-359L267-359Q267-345 277.5-337Q288-329 305-329L305-329Q322-329 352-332L352-332Q425-337 461-337L461-337Q565-337 622-302Q679-267 679-195L679-195Q679-87 595-38.5Q511 10 363 10L363 10ZM1202-544L1202-367Q1110-373 1034-376L1034-376L1033-270Q1033-216 1056.5-185.5Q1080-155 1140-155L1140-155Q1163-155 1184-159L1184-159Q1180-122 1180-84L1180-84Q1180-66 1182-2L1182-2Q1138 6 1108 8Q1078 10 1030 10L1030 10Q913 10 864.5-46.5Q816-103 816-204L816-204L817-373Q770-371 719-367L719-367L719-544Q771-544 807-577Q843-610 850-656L850-656L1122-656Q1071-586 1009-544L1009-544L1202-544ZM2929.2-778Q2923.2-592 2923.2-389L2923.2-389Q2923.2-188 2929.2 0L2929.2 0L2703.2 0L2706.2-120Q2677.2-53 2622.2-21.5Q2567.2 10 2492.2 10L2492.2 10Q2427.2 10 2375.2-27Q2323.2-64 2294.2-127.5Q2265.2-191 2265.2-267L2265.2-267Q2265.2-342 2294.2-408.5Q2323.2-475 2375.7-515.5Q2428.2-556 2495.2-556L2495.2-556Q2573.2-556 2628.7-523.5Q2684.2-491 2711.2-423L2711.2-423Q2711.2-480 2707.2-606L2707.2-606Q2703.2-728 2703.2-778L2703.2-778L2929.2-778ZM2597.2-158Q2646.2-158 2677.2-185.5Q2708.2-213 2708.2-273L2708.2-273Q2708.2-326 2677.2-351Q2646.2-376 2599.2-376L2599.2-376Q2554.2-376 2523.7-347.5Q2493.2-319 2493.2-273L2493.2-273Q2493.2-222 2521.2-190Q2549.2-158 2597.2-158L2597.2-158ZM3265.2 0L3027.2 0Q3034.2-161 3034.2-266L3034.2-266Q3034.2-391 3026.2-546L3026.2-546L3266.2-546Q3258.2-397 3258.2-266L3258.2-266Q3258.2-156 3265.2 0L3265.2 0ZM3679.2 10Q3508.2 10 3427.7-68.5Q3347.2-147 3347.2-275L3347.2-275Q3347.2-400 3427.7-478Q3508.2-556 3679.2-556L3679.2-556Q3794.2-556 3871.7-518.5Q3949.2-481 3986.2-417.5Q4023.2-354 4023.2-275L4023.2-275Q4023.2-146 3937.7-68Q3852.2 10 3679.2 10L3679.2 10ZM3683.2-160Q3748.2-160 3780.2-191Q3812.2-222 3812.2-274L3812.2-274Q3812.2-323 3780.2-354.5Q3748.2-386 3683.2-386L3683.2-386Q3618.2-386 3588.2-355Q3558.2-324 3558.2-274L3558.2-274Q3558.2-222 3588.2-191Q3618.2-160 3683.2-160L3683.2-160Z"/><path style="fill:var(--tangerine,#D9824E)" d="M2195.5-556L2195.5-80.9Q2195.5-5.6 2158.5 53.3Q2121.4 112.3 2053.2 153.0Q1984.9 193.7 1888.1 215.1Q1791.2 236.4 1671.0 236.4L1671.0 236.4Q1618.2 236.4 1560.1 232.2Q1502.0 228.0 1446.7 220.4Q1391.3 212.8 1343.1 203.0Q1294.8 193.2 1261.6 181.4L1261.6 181.4L1261.6-1.7Q1297.6 13.4 1341.6 26.9Q1385.7 40.4 1437.4 50.8Q1489.1 61.2 1548.3 67.1Q1607.6 73.0 1673.8 73.0L1673.8 73.0Q1736.2 73.0 1783.6 65.7Q1831.1 58.4 1865.9 46.0Q1900.7 33.7 1923.7 17.7Q1946.8 1.7 1960.8-15.5Q1974.8-32.6 1980.7-49.4Q1986.6-66.3 1986.6-80.9L1986.6-80.9L1986.6-148.8Q1929.3-106.7 1850.2-79.5Q1771.0-52.3 1669.9-52.3L1669.9-52.3Q1552.5-52.3 1474.2-75.0Q1395.8-97.7 1348.7-140.7Q1301.5-183.7 1281.6-245.4Q1261.6-307.2 1261.6-384.7L1261.6-384.7L1261.6-556L1471.1-556L1471.1-405.5Q1471.1-360.0 1483.2-324.6Q1495.2-289.2 1521.4-265.4Q1547.5-241.5 1589.0-229.2Q1630.6-216.8 1689.5-216.8L1689.5-216.8Q1739.5-216.8 1784.2-229.2Q1828.8-241.5 1866.4-261.7Q1904.1-281.9 1934.4-307.8Q1964.7-333.6 1986.6-360.6L1986.6-360.6L1986.6-556L2195.5-556ZM3143.2-605Q3080.2-605 3049.7-636Q3019.2-667 3019.2-717L3019.2-717Q3019.2-766 3049.7-798Q3080.2-830 3143.2-830L3143.2-830Q3203.2-830 3235.2-797.5Q3267.2-765 3267.2-717L3267.2-717Q3267.2-667 3236.2-636Q3205.2-605 3143.2-605L3143.2-605Z"/></svg></a>
+  <nav class="links"><a href="./">← Back to the website</a></nav>
+  <div class="who">
+    <span id="avatar" class="avatar"></span>
+    <div class="who-text"><div class="name" id="name"></div><div class="role" id="role"></div></div>
+    <button class="btn ghost small magnetic" id="signout" type="button">Sign out</button>
+  </div>
+</header>
+
+<div class="portal" id="portal">
+  <aside class="side glass">
+    <div class="side-head">
+      <p class="eyebrow" id="listEyebrow">Client portal</p>
+      <h1 id="listTitle">My <em>projects</em></h1>
+      <div class="row">
+        <button class="btn small magnetic" id="newBtn" type="button">+ New request</button>
+        <select id="filter" aria-label="Filter by status">
+          <option value="active">Active</option>
+          <option value="all">All</option>
+          <option value="open">Open</option>
+          <option value="in_progress">In progress</option>
+          <option value="waiting_on_client">Waiting on client</option>
+          <option value="resolved">Resolved</option>
+          <option value="closed">Closed</option>
+        </select>
+      </div>
+    </div>
+    <ul class="list" id="list"></ul>
+    <nav class="side-legal" aria-label="Legal"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a><a href="contact.html">Contact</a></nav>
+  </aside>
+
+  <main class="main glass" id="main">
+    <!-- New request -->
+    <section class="panel" id="newPanel">
+      <button class="btn ghost small back-btn" type="button" data-back>← Projects</button>
+      <p class="eyebrow">Start a project</p>
+      <h2>Tell us what you <em>need.</em></h2>
+      <p class="sub">We usually reply within one working day.</p>
+      <form class="form" id="newForm">
+        <div class="field"><label for="n-cat">What is it about?</label>
+          <select id="n-cat" name="category">
+            <option value="new_project">A new project</option>
+            <option value="change_request">A change to an existing project</option>
+            <option value="bug">Something is broken</option>
+            <option value="question">A question</option>
+          </select>
+        </div>
+        <div class="field"><label for="n-title">Short title</label><input id="n-title" name="title" required minlength="3" maxlength="140" placeholder="e.g. Brand + website for our café"></div>
+        <div class="field"><label for="n-desc">Details</label><textarea id="n-desc" name="description" required maxlength="5000" placeholder="Goals, deadlines, links, budget… anything that helps."></textarea></div>
+        <button class="btn magnetic" type="submit">Send request <span>→</span></button>
+      </form>
+    </section>
+
+    <!-- Request detail: a chat with the studio, like the admin inbox (js/portal.js) -->
+    <section class="chat hidden" id="detail" aria-labelledby="d-title">
+      <header class="ch-head">
+        <button class="ch-back" type="button" data-back aria-label="Back to projects">←</button>
+        <span class="studio-av" aria-hidden="true"><svg viewBox="0 0 392 296"><path fill="currentColor" fill-rule="evenodd" d="M162.6,288.1c-31.2,0 -58.6,-5.8 -82.1,-17.5c-23.5,-11.6 -41.8,-28 -54.9,-49.1c-13.1,-21.1 -19.6,-45.7 -19.6,-73.8c0,-28.3 6.5,-52.9 19.6,-73.8c13.1,-20.9 31.6,-37.1 55.6,-48.6c24,-11.5 52.4,-17.3 85.3,-17.3c7.9,0 14.5,0.3 19.8,0.9c5.3,0.6 10.2,1.3 14.8,2c4.6,0.7 9.8,1.4 15.7,2c5.9,0.6 13.3,0.9 22.1,0.9l7.2,48c0,0.1 0,0.1 0,0.2c-0.1,0.6 -0.1,1.2 -0.1,1.9c0,0.6 0.1,1.1 0.1,1.6c0.1,1.3 0.3,2.6 0.7,3.7c0.2,0.6 0.4,1.3 0.7,1.9l2.2,14.7h-3.6c-2.6,-14.2 -7.9,-26.7 -15.7,-37.6c-7.8,-10.9 -17.5,-19.6 -29.2,-25.9c-11.6,-6.4 -24.5,-9.5 -38.7,-9.5c-13.9,0 -26.8,3.4 -38.5,10.1c-11.8,6.7 -21.8,16.1 -30.2,28.1c-8.4,12.2 -14.9,26.8 -19.6,43.7c-4.7,16.9 -7,35.5 -7,55.6c0,26.6 4.1,49.9 12.2,69.7c8.2,19.8 19.7,35.2 34.6,46.1c8.6,6.3 18.2,10.8 28.6,13.5l0.4,3c0,0 0.1,0 0.1,0l0.1,0.8c0.1,0 0.2,0 0.3,0l0.1,0.8c0.2,0 0.3,0 0.5,0l0.1,0.7c0.2,0 0.4,0 0.6,0l0.1,0.6c0.2,0 0.5,0 0.7,0l0.1,0.4c0.3,0 0.5,0 0.8,0l0,0.3c0.3,0 0.6,0 0.9,0l0,0.1c9.2,0 17.5,0.4 24.9,1.1c1.4,0.1 2.8,0.3 4.1,0.5c0.1,0 0.3,0 0.4,0c-4.5,0.3 -9.2,0.4 -14.2,0.4zM223.6,261.6c15,-13.8 24.3,-33.1 27.9,-57.8h3.6l-9.7,71.9c-3.3,0.7 -6.6,1.2 -10.1,1.6c-3.2,0.3 -6.5,0.5 -9.8,0.5c-3.4,0 -6.8,-0.2 -10,-0.5c-4.3,-0.4 -8.5,-1.2 -12.6,-2.2c7.6,-3.3 14.4,-7.9 20.6,-13.6zM202.3,286.5c-8,-1.1 -16.4,-2.2 -25,-3.2c-8.6,-1.1 -18.6,-1.6 -29.9,-1.6l-5.2,-38.9c0.5,-0.6 0.8,-1.2 1.2,-1.9c0.5,-0.9 0.9,-1.8 1.1,-2.8c0.3,-0.9 0.5,-1.9 0.6,-3c0.1,-0.6 0.1,-1.2 0.1,-1.8c0,-0.7 0,-1.4 -0.1,-2c-0.1,-1.2 -0.3,-2.4 -0.7,-3.5c-0.3,-1.1 -0.7,-2.1 -1.2,-3c-0.1,-0.3 -0.3,-0.5 -0.4,-0.8c-1.1,-1.9 -2.3,-4 -3.4,-6c-0.2,-0.4 -0.4,-0.9 -0.6,-1.4l-0.7,-5.2c0,-0.5 0,-1.1 0.1,-1.6c0.2,-1.5 0.5,-2.9 0.9,-4.4c0,-0.1 0.1,-0.3 0.1,-0.4c0.1,-0.4 0.3,-0.7 0.4,-1.1h1.1c3.6,24.7 12.9,44 27.9,57.8c15,13.8 34,20.7 57.1,20.7c20.2,0 37.7,-5.5 52.6,-16.4c14.9,-10.9 26.4,-26.3 34.6,-46.1c8.2,-19.8 12.2,-43 12.2,-69.7c0,-20.2 -2.3,-38.7 -7,-55.6c-4.7,-16.9 -11.2,-31.5 -19.6,-43.7c-8.4,-12 -18.5,-21.4 -30.2,-28.1c-7.7,-4.4 -15.9,-7.4 -24.6,-8.9l-0.1,-1c0,0 -0.1,0 -0.1,0l-0.1,-0.8c-0.1,0 -0.2,0 -0.3,0l-0.1,-0.8c-0.2,0 -0.3,0 -0.5,0l-0.1,-0.7c-0.2,0 -0.4,0 -0.6,0l-0.1,-0.6c-0.2,0 -0.5,0 -0.7,0l-0.1,-0.4c-0.3,0 -0.5,0 -0.8,0l0,-0.3c-0.3,0 -0.6,0 -0.9,0l0,-0.1c-8.5,0 -15.5,-0.3 -21.3,-0.8c-0.8,-0.1 -1.6,-0.2 -2.3,-0.2c3.1,-0.1 6.6,-0.2 10.3,-0.2c32.9,0 61.3,5.8 85.3,17.3c24,11.5 42.5,27.7 55.6,48.6c13.1,20.9 19.6,45.5 19.6,73.8c0,28.1 -6.5,52.7 -19.6,73.8c-13.1,21.1 -31.4,37.5 -54.9,49.1c-23.5,11.6 -50.9,17.5 -82.1,17.5c-10.1,0 -19.1,-0.5 -27.2,-1.6zM161.7,48.1c-7.8,10.9 -13,23.5 -15.7,37.6h-3.6l10.2,-68c0.8,-0.1 1.5,-0.2 2.3,-0.3c2.5,-0.2 5.1,-0.4 7.7,-0.4c2.8,0 5.6,0.1 8.4,0.4c5,0.5 9.9,1.5 14.6,2.9c1.8,0.5 3.5,1.2 5.2,1.8c-11.6,6.4 -21.3,15 -29.1,25.9z"/><path fill="var(--tangerine,#D9824E)" fill-rule="evenodd" d="M222.9,175.8v0c0.1,-2.7 -0.2,-5 -0.8,-7c-0.6,-2 -1.2,-4 -1.8,-6c-0.6,-2 -0.9,-4.4 -0.8,-7.1v0c0.1,-2.5 0.9,-4.9 2.4,-7.2c1.5,-2.3 3.6,-4.3 6.2,-5.8c2.7,-1.5 5.8,-2.3 9.5,-2.3v0c5.1,0 9.2,1.5 12.4,4.4c3.2,2.9 4.7,7.3 4.6,13.2v0c-0.2,6.3 -1.8,12.3 -4.9,18.1c-3.1,5.8 -7.5,11 -13.3,15.6c-5.7,4.5 -12.7,8.1 -20.8,10.7c-8.1,2.6 -17.3,4 -27.6,4v0c-13.9,0 -25.2,-2.5 -33.9,-7.4v0c-4,-2.2 -7.4,-4.8 -10.3,-7.8v0c-1.3,1.2 -2.4,2.4 -3.4,3.6v0c-2.4,2.9 -4.1,5.8 -5,8.6c-0.9,2.8 -1.4,5.6 -1.4,8.4v0c0,3.1 0.6,5.8 1.8,8c1.2,2.2 2.4,4.3 3.6,6.4c1.2,2 1.8,4.4 1.8,7v0c0.1,3.5 -1.3,6.6 -4.1,9.2c-2.8,2.6 -6.3,3.9 -10.6,4v0c-4.7,0.1 -8.6,-1.5 -11.7,-4.6c-3.1,-3.2 -4.7,-7.8 -4.8,-13.9v0c0,-6.5 2.3,-13.5 7,-20.9v0c4.4,-6.9 11.8,-14.1 22.2,-21.8v0c-1.4,-2.1 -2.6,-4.4 -3.5,-6.9v0c-3.5,-8.8 -4.2,-18.9 -2.1,-30.4v0c1.6,-8.6 4.6,-16.5 9.1,-23.6c4.5,-7.1 10.1,-13.3 16.8,-18.4c6.7,-5.1 14.3,-9.1 22.6,-11.9c8.3,-2.8 17.1,-4.2 26.3,-4.2v0c7.7,0 14.6,1.2 20.7,3.5c6,2.4 10.7,5.6 14,9.6v0c0.6,0.7 1.1,1.4 1.6,2.1v0c2.8,-2.2 5.1,-4.3 6.8,-6.4v0c1.9,-2.2 3.2,-4.4 4.1,-6.7c0.8,-2.2 1.2,-4.6 1.1,-7v0c0,-3.1 -0.6,-5.7 -1.7,-8c-1.1,-2.2 -2.2,-4.4 -3.3,-6.4c-1.1,-2 -1.6,-4.3 -1.7,-6.7v0c-0.1,-3.6 1.3,-6.8 4.2,-9.6c2.8,-2.8 6.6,-4.2 11.4,-4.2v0c5,-0.1 9,1.4 11.9,4.6c2.9,3.2 4.4,7.6 4.5,13.1v0c0,4.5 -1,8.9 -3.1,13.2c-2.1,4.3 -5.3,8.8 -9.8,13.3c-4.5,4.6 -10.4,9.6 -17.7,15v0l-3.9,3c0.1,1.3 0.2,2.5 0.1,3.8v0c-0.1,2.9 -0.8,5.2 -1.9,7.1c-1.2,1.9 -3.2,3 -6,3.3v0c-4.5,0.3 -9.3,1.7 -14.5,4v0c-1.6,0.7 -3.3,1.6 -5.1,2.6v0l-47.7,36.1c0.2,1.1 0.4,2.2 0.7,3.3v0c1.7,7.7 4.8,13.4 9.3,17.2c4.5,3.8 10,5.8 16.5,5.8v0c3.3,0 6.3,-0.4 9.2,-1.3c2.8,-0.9 5.3,-2.2 7.5,-3.9c2.2,-1.7 3.9,-3.8 5.2,-6.2c1.3,-2.4 2,-5.2 2.1,-8.2zM171.7,160.5v0l37.7,-28.6c0.7,-3.4 1.2,-7.5 1.6,-12.4v0c0.5,-7 -0.2,-12.1 -1.9,-15.4c-1.8,-3.3 -4.5,-4.9 -8.2,-4.9v0c-3.9,0 -7.6,1.6 -11.3,4.8c-3.7,3.2 -7,8.2 -10,14.8c-2.9,6.6 -5.1,15 -6.6,25.1v0c-0.9,6.1 -1.4,11.6 -1.3,16.6z"/></svg></span>
+        <div class="ch-who"><b id="d-title"></b><small id="d-ref"></small></div>
+        <span id="d-status"></span>
+      </header>
+      <div class="ch-scroll" id="chScroll"><div class="thread" id="thread"></div></div>
+      <div class="ch-compose">
+        <form class="compose-box" id="replyForm">
+          <textarea id="r-body" rows="1" required maxlength="5000" placeholder="Write a message…" aria-label="Message"></textarea>
+          <button class="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+        </form>
+        <p class="compose-meta" id="composeMeta"><span><kbd>Enter</kbd> to send, <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line</span><span>Only you and the studio can see this chat</span></p>
+        <p class="closed-note hidden" id="closedNote">This request is closed. Start a new one if you need anything else.</p>
+      </div>
+      <aside class="ch-side" id="d-side" aria-label="About this request"></aside>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="js/portal.js?v=20261113110417"></script>
+</body>
+</html>

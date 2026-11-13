@@ -1,0 +1,94 @@
+/* Selected work: a pinned stage the scroll plays through (js/showcase.js). A mosaic of rounded tiles,
+   then four chapters where one big piece rises through the middle and smaller ones float past. */
+.showcase { position: relative; width: 100vw; margin-left: calc(50% - 50vw); height: 470vh; }
+.sc-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+
+/* every tile: 1em is a tenth of its size, so the type inside scales with it */
+.sc-tile { --t: min(30vh, 300px); position: relative; flex: none; width: var(--t); height: var(--t); font-size: calc(var(--t) / 10); border-radius: 1em; overflow: hidden;
+  box-shadow: 0 30px 60px -34px rgba(0,0,0,.6); color: #151946; background: #EBE1D5; isolation: isolate; }
+.sc-tile.wide { width: calc(var(--t) * 1.6); }
+.sc-cap { position: absolute; left: .7em; bottom: .6em; z-index: 2; font: 600 max(10px, .3em) var(--mono); letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+
+/* the mosaic */
+.sc-mosaic { position: absolute; left: 0; top: 0; display: grid; gap: min(2.2vh, 22px); transform-origin: 0 0; will-change: transform, opacity; }
+.sc-row { display: flex; gap: min(2.2vh, 22px); }
+.sc-row:nth-child(2) { margin-left: min(16vh, 160px); }
+.sc-row:nth-child(3) { margin-left: min(5vh, 50px); }
+
+/* chapters */
+.sc-beat { position: absolute; inset: 0; pointer-events: none; }
+.sc-hero, .sc-sat { position: absolute; left: 50%; top: 50%; will-change: transform; pointer-events: auto; }
+.sc-hero { z-index: 2; }
+.sc-hero .sc-tile { --t: min(58vh, 74vw); }
+.sc-hero .sc-tile.wide { width: min(calc(var(--t) * 1.6), 90vw); height: auto; aspect-ratio: 16 / 10; }
+.sc-sat .sc-tile { --t: min(21vh, 26vw); }
+.sc-label { position: absolute; left: clamp(20px, 5vw, 80px); bottom: clamp(28px, 7vh, 72px); z-index: 3; max-width: min(380px, 34vw); display: grid; gap: 8px; pointer-events: none; }
+.sc-label small { font: 600 12px var(--mono); letter-spacing: .18em; color: var(--tangerine); }
+.sc-label b { font: 400 clamp(34px, 4.4vw, 68px)/.95 var(--serif); letter-spacing: -.035em; color: var(--cream); }
+.sc-label span { color: var(--muted); line-height: 1.5; font-size: 15px; }
+
+/* --- the tiles --- */
+/* every caption is the same small chip, so the wall reads as one set */
+.sc-tile .sc-cap { left: .6em; bottom: .6em; padding: .45em .75em; border-radius: 99px; background: rgba(21,25,70,.84); color: #EBE1D5; opacity: 1;
+  backdrop-filter: blur(8px); white-space: nowrap; }
+.sc-tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); pointer-events: none; z-index: 3; }
+
+/* logos */
+.k-logo { display: grid; place-items: center; }
+.k-logo img { width: 72%; height: 72%; object-fit: contain; }
+.k-elv { background: #F3EAD9; }
+.k-elvteal { background: #2F5D5A; }
+.k-mono img { width: 64%; height: 64%; }
+.k-vqsym { background: #EEF2F4; }
+.k-vqsym img { width: 46%; height: 46%; }
+.k-vq { background: linear-gradient(168deg, #232838 0 70%, #1E8DB4 70% 80%, #F4F4F2 80%); display: grid; place-items: center; }
+.k-vq img { width: 72%; margin-top: -18%; }
+
+/* photographs and mock-ups fill their tile */
+.k-photo { background: #E6E9ED; }
+.k-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: scale .8s var(--ease); }
+.k-photo:hover img { scale: 1.04; }
+.k-fit { background: #EDE3D2; display: grid; place-items: center; }
+.k-fit img { height: 84%; width: auto; max-width: 90%; object-fit: contain; filter: drop-shadow(0 .3em .5em rgba(31,42,46,.18)); }
+
+/* websites */
+.k-web { display: block; background: #0E1030; color: #EBE1D5; }
+.k-web img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: scale .8s var(--ease); }
+.k-web:hover img { scale: 1.05; }
+.sc-visit { position: absolute; left: .6em; bottom: .6em; z-index: 2; display: inline-flex; align-items: center; gap: .5em; padding: .45em .55em .45em .8em; border-radius: 99px;
+  background: rgba(21,25,70,.88); backdrop-filter: blur(8px); font: 500 max(11px, .32em) var(--sans); color: #EBE1D5; white-space: nowrap; }
+.sc-visit i { font-style: normal; display: grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; background: #D9824E; color: #151946; transition: rotate .5s var(--ease); }
+.k-web:hover .sc-visit i { rotate: -45deg; }
+
+/* numbers */
+.k-stat { display: grid; align-content: end; padding: .8em; }
+.k-stat b { font: 400 2.6em/.9 var(--serif); letter-spacing: -.04em; }
+.k-stat small { font-size: .4em; opacity: .8; margin-top: .45em; }
+.s-cop { background: #D9824E; color: #151946; }
+.s-bone { background: #EBE1D5; color: #151946; }
+.s-navy { background: #232966; color: #EBE1D5; }
+.s-navy b { font-size: 1.9em; }
+.k-cta { background: #151946; color: #EBE1D5; display: grid; place-content: center; justify-items: center; text-align: center; gap: .45em; border: 1px dashed rgba(235,225,213,.35); }
+.k-cta small { font: 600 max(10px, .22em) var(--mono); letter-spacing: .2em; text-transform: uppercase; color: #D8C7BA; }
+.k-cta b { font: 400 1.25em/.95 var(--serif); letter-spacing: -.03em; }
+.k-cta b em { font-style: italic; color: #D9824E; }
+.k-cta .pill { font-size: 14px; background: #EBE1D5; color: #151946; }
+:root[data-theme="light"] .sc-tile { box-shadow: 0 30px 60px -34px rgba(21,25,70,.45); }
+
+@media (max-width: 760px) {
+  .sc-tile { --t: min(24vh, 44vw); }
+  .sc-hero .sc-tile { --t: min(46vh, 76vw); }
+  .sc-sat .sc-tile { --t: min(16vh, 28vw); }
+  .sc-label { left: 20px; right: 20px; bottom: 28px; max-width: none; }
+  .sc-sat[data-j="2"] { display: none; }   /* phones: two floaters are enough, and the label stays clear */
+  .sc-label b { font-size: 34px; }
+  .sc-label span { font-size: 14px; }
+}
+
+/* no motion: just the wall of work, wrapped */
+.showcase.sc-static { height: auto !important; }
+.sc-static .sc-stage { position: static; height: auto; overflow: visible; }
+.sc-static .sc-mosaic { position: static; display: flex; flex-wrap: wrap; justify-content: center; padding: 0 20px; transform: none !important; }
+.sc-static .sc-row { display: contents; }
+.sc-static .sc-tile { --t: min(42vw, 240px); }
+.sc-static .sc-beats { display: none; }

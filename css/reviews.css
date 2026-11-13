@@ -1,0 +1,70 @@
+/* Reviews: a house of cards. Click it, the cards fall, the view swings down to the table and the
+   reviews are face-up among them (js/reviews.js). Cards use the site's palette and type. */
+.reviews { position: relative; padding: 120px 0 90px; overflow: hidden; background: radial-gradient(ellipse at 50% 60%, #22142F 0%, var(--night) 70%); }
+.rv-head { text-align: center; position: relative; z-index: 2; }
+.rv-title { font-family: var(--serif); font-weight: 400; font-size: clamp(52px, 8vw, 116px); line-height: .9; letter-spacing: -.01em; text-transform: uppercase; color: var(--cream); }
+.rv-sub { margin-top: 14px; color: var(--muted); }
+.rv-stage { --s: 1; position: relative; height: min(78vh, 720px); min-height: 560px; perspective: 1700px; perspective-origin: 50% 30%; cursor: pointer; outline: none; }
+.rv-stage.spread { cursor: default; }
+.rv-stage:focus-visible .rv-hint { color: var(--tangerine); }
+.rv-world { position: absolute; left: 50%; top: 44%; width: 0; height: 0; transform-style: preserve-3d; }
+.rv-floor { position: absolute; left: -760px; top: -520px; width: 1520px; height: 1040px; border-radius: 50%; transform: rotateX(90deg); pointer-events: none;
+  background: radial-gradient(closest-side, rgba(192,98,46,.32), rgba(35,41,102,.55) 45%, transparent 100%); }
+.rv-card { --cw: 118px; --ch: 165px; position: absolute; left: calc(var(--cw) / -2); top: calc(var(--ch) / -2); width: var(--cw); height: var(--ch); transform-style: preserve-3d; will-change: transform; }
+.rv-in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .35s cubic-bezier(.22,1,.36,1); }
+.rv-stage.spread .rv-card.up:hover .rv-in { transform: translateZ(18px) scale(1.06); }
+.rv-face, .rv-back { position: absolute; inset: 0; border-radius: 9px; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 0 0 1px rgba(21,25,70,.25), 0 10px 22px -10px rgba(0,0,0,.6); }
+.rv-back { transform: rotateY(180deg); background:
+    radial-gradient(ellipse 34% 26% at 50% 50%, #232966 96%, transparent 100%),
+    repeating-linear-gradient(45deg, rgba(235,225,213,.22) 0 2px, transparent 2px 11px),
+    repeating-linear-gradient(-45deg, rgba(235,225,213,.22) 0 2px, transparent 2px 11px), #2F3578;
+  border: 6px solid #F4EEE2; display: grid; place-items: center; }
+.rv-back svg { width: 34%; color: #F4EEE2; }
+.rv-face { background: #F6F1E7; color: var(--ink); display: grid; grid-template-rows: auto 1fr auto; padding: 9px 10px; overflow: hidden;
+  background-image: linear-gradient(160deg, rgba(255,255,255,.6), transparent 40%); }
+.rv-idx { font: 15px/0.9 var(--serif); display: grid; justify-items: center; width: max-content; }
+.rv-idx i { font-style: normal; font-size: 13px; }
+.rv-idx.br { justify-self: end; transform: rotate(180deg); }
+.rv-red { color: #C46A38; }
+.rv-mid { display: grid; align-content: center; gap: 5px; text-align: center; padding: 0 2px; min-height: 0; }
+.rv-stars { color: #C46A38; font-size: 10px; letter-spacing: 2px; }
+.rv-quote { font: 9.5px/1.38 var(--sans); color: #2B2232; display: -webkit-box; -webkit-line-clamp: 5; max-height: calc(9.5px * 1.38 * 5); -webkit-box-orient: vertical; overflow: hidden; }
+.rv-name { font: 12px/1.1 var(--serif); }
+.rv-co { font: 6.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(21,25,70,.55); }
+.rv-pip { font: 34px/1 var(--serif); }
+.rv-hint { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; font: 12px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--lavender); transition: opacity .4s; pointer-events: none; }
+.rv-stage.spread .rv-hint { opacity: 0; }
+.rv-foot { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 18px 40px; margin-top: 10px; }
+.rv-ribbon { width: min(420px, 90vw); height: auto; overflow: visible; }
+.rv-ribbon .band { fill: none; stroke: var(--cream); stroke-width: 34; stroke-linecap: round; }
+.rv-ribbon text { font: 14px "Archivo Black", var(--sans); letter-spacing: .14em; fill: var(--night); }
+.rv-actions { display: grid; justify-items: center; gap: 10px; }
+.rv-actions .linkish { font-size: 13px; color: var(--muted); }
+.rv-note { font-size: 12px; color: var(--muted); max-width: 300px; text-align: center; }
+
+/* the leave-a-review form */
+.rv-dialog { margin: auto; width: min(520px, calc(100vw - 32px)); border: 0; border-radius: 22px; padding: 28px; background: #F6F1E7; color: var(--ink); box-shadow: 0 40px 80px -20px rgba(0,0,0,.7); }
+.rv-dialog::backdrop { background: rgba(21,25,70,.7); backdrop-filter: blur(4px); }
+.rv-dialog h3 { font: 34px/1 var(--serif); margin-bottom: 6px; }
+.rv-dialog p.sub { color: #5A4F66; font-size: 14px; margin-bottom: 18px; }
+.rv-dialog form { display: grid; gap: 14px; max-width: none; }
+.rv-dialog .field label { color: #5A4F66; }
+.rv-dialog .field input, .rv-dialog .field textarea { color: var(--ink); background: #fff; border-color: rgba(21,25,70,.14); }
+.rv-dialog .field input:focus, .rv-dialog .field textarea:focus { background: #fff; border-color: var(--violet); }
+.rv-rate { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 4px; border: 0; }
+.rv-rate legend { width: 100%; margin-bottom: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #5A4F66; }
+.rv-rate input { position: absolute; opacity: 0; pointer-events: none; }
+.rv-rate label { font-size: 30px; line-height: 1; color: rgba(21,25,70,.2); cursor: pointer; transition: color .15s; }
+.rv-rate label:hover, .rv-rate label:hover ~ label, .rv-rate input:checked ~ label { color: #C46A38; }
+.rv-rate input:focus-visible + label { outline: 2px solid var(--violet); outline-offset: 2px; border-radius: 4px; }
+.rv-dialog .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.rv-dialog .pill[type=submit] { background: var(--ink); color: #EBE1D5; }
+.rv-dialog .pill.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgba(21,25,70,.2); }
+
+@media (max-width: 760px) {
+  .rv-stage { --s: .6; height: 600px; min-height: 0; }
+  .rv-world { top: 42%; }
+}
+
+:root[data-theme="light"] .reviews { background: radial-gradient(ellipse at 50% 60%, #E4DCF5 0%, var(--night) 70%); }
+:root[data-theme="light"] .rv-floor { background: radial-gradient(closest-side, rgba(192,98,46,.22), rgba(235,225,213,.35) 45%, transparent 100%); }

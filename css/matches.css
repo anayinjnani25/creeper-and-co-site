@@ -1,0 +1,82 @@
+/* "Always begin from the end": the matchbox wall above the footer */
+.matches { position: relative; height: min(70vh, 640px); min-height: 520px; overflow: hidden; background: #232966; isolation: isolate; transition: height .8s cubic-bezier(.22,1,.36,1), min-height .8s cubic-bezier(.22,1,.36,1); }
+/* shorter while closed; it grows to the full screen when the box is opened */
+.matches.opened { height: 100vh; height: 100svh; min-height: 620px; }
+.matches::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(21,25,70,.55) 100%); }
+
+/* the wall: columns of boxes, tilted, each column drifting the other way to its neighbour */
+.wall { position: absolute; left: 50%; top: 50%; display: flex; align-items: flex-start; gap: 26px; transform: translate(-50%, -50%) rotate(-18deg); transition: filter .6s ease, transform 1s cubic-bezier(.22,1,.36,1); }
+.mcol { display: flex; flex-direction: column; gap: 18px; animation: drift-up 56s linear infinite; }
+.mcol.down { animation-name: drift-down; }
+.wall.still .mcol { animation: none; }
+/* each column holds three copies; drifting one copy's length loops seamlessly and the screen stays covered */
+@keyframes drift-up { to { transform: translateY(-33.3333%); } }
+@keyframes drift-down { from { transform: translateY(-33.3333%); } to { transform: translateY(0); } }
+/* each box is one painted image (tray, sticks, label and shadow baked in) */
+.mbx { display: block; width: 158px; height: auto; flex-shrink: 0; user-select: none; -webkit-user-drag: none; }
+.matches.opened .wall { filter: blur(6px) brightness(.6) saturate(.8); transform: translate(-50%, -50%) rotate(-18deg) scale(1.04); }
+
+/* the line of copy */
+.m-copy { position: absolute; z-index: 3; left: 50%; top: clamp(48px, 8vh, 80px); translate: -50% 0; text-align: center; pointer-events: none; color: #EBE1D5;
+  text-shadow: 0 2px 20px rgba(21,25,70,.6); transition: opacity .4s; width: max-content; max-width: 92vw; }
+.m-copy::before { content: ""; position: absolute; inset: -60px -120px -50px; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgba(21,25,70,.92), rgba(21,25,70,.7) 55%, transparent); }
+.m-copy .eyebrow { color: #D8C7BA; }
+.m-copy h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 5vw, 72px); letter-spacing: -.03em; line-height: 1; margin-top: 10px; }
+.m-copy h2 em { color: #D9824E; }
+.matches.opened .m-copy { opacity: 0; }
+
+/* the closed Stydio box in the middle */
+.mainbox { position: absolute; z-index: 4; left: 50%; top: 62%; width: 210px; border: 0; background: none; padding: 0; cursor: pointer;
+  transform: translate(-50%, -50%) rotate(-8deg); transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+.mainbox .box { display: block; width: 100%; height: auto; pointer-events: none; }
+.mainbox:hover, .mainbox:focus-visible { transform: translate(-50%, -53%) rotate(-5deg) scale(1.05); outline: none; }
+.mainbox:focus-visible .ring { border-color: #D9824E; border-style: solid; }
+.mainbox .ring { position: absolute; inset: 4px; border-radius: 12px; border: 2px dashed rgba(235,225,213,.75); animation: breathe 2.4s ease-in-out infinite; pointer-events: none; }
+@keyframes breathe { 50% { inset: -6px; opacity: .35; } }
+.mainbox .hint { position: absolute; left: 50%; top: calc(100% + 8px); translate: -50% 0; rotate: 8deg; white-space: nowrap; font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #EBE1D5; background: rgba(21,25,70,.85); padding: 6px 12px; border-radius: 999px; }
+/* the pop: a quick lift and straighten before the stage takes over */
+.mainbox.pop { transform: translate(-50%, -60%) rotate(0deg) scale(1.25); }
+.matches.opened .mainbox { opacity: 0; transition: opacity .2s .1s; }
+
+/* opened: big sleeve on the left, the drawer slides out to the right, stickers inside */
+.mb-stage { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; padding: 24px; }
+.mb-stage[hidden] { display: none; }
+.mb-open { position: relative; width: min(94vw, 128vh, 960px); aspect-ratio: 1.7 / 1; transform: scale(.7) rotate(-6deg); opacity: 0; transition: transform .6s cubic-bezier(.34,1.4,.64,1), opacity .35s; }
+.mb-stage.on .mb-open { transform: none; opacity: 1; }
+/* upright sleeve on the left (its own painted image, label and cardboard edge), the drawer slides out to the right */
+.big-sleeve { position: absolute; z-index: 2; left: 4%; top: 0; height: 100%; aspect-ratio: 312 / 382; background: center / 100% 100% no-repeat;
+  filter: drop-shadow(0 30px 40px rgba(21,25,70,.6)); }
+.big-drawer { position: absolute; z-index: 1; left: 5%; top: 2%; height: 94%; aspect-ratio: 300 / 382; border-radius: 4px;
+  background: #F2E9DA center / cover no-repeat; box-shadow: inset 0 0 0 12px #E9DFCC, inset 0 0 0 13px rgba(0,0,0,.1), inset 0 20px 30px rgba(0,0,0,.14), 0 40px 60px -30px rgba(0,0,0,.8);
+  transform: translateX(0); transition: transform .9s cubic-bezier(.22,1,.36,1) .25s; }
+.mb-stage.on .big-drawer { transform: translateX(112%); }
+.stickers { position: absolute; inset: 22px; }
+/* social stickers: painted vinyl stickers (stickers.js), the links sit on top of the collage */
+.stk { position: absolute; display: block; transform: scale(0) rotate(var(--r, 0deg)); transition: transform .45s cubic-bezier(.34,1.7,.64,1) var(--d, .6s); }
+.stk img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.mb-stage.on .stk { transform: scale(1) rotate(var(--r, 0deg)); }
+a.stk:hover { transform: scale(1.08) rotate(0deg) !important; transition-delay: 0s; z-index: 5; }
+a.stk:focus-visible { outline: 3px solid #D9824E; outline-offset: 2px; border-radius: 12px; }
+.s-insta { left: 4%; top: 6%; width: 64%; --r: -7deg; }
+.s-behance { right: 2%; top: 22%; width: 40%; --r: 8deg; }
+.s-linkedin { left: 5%; top: 30%; width: 36%; --r: -6deg; }
+.s-mail { left: 3%; top: 56%; width: 64%; --r: 5deg; }
+.s-start { right: 2%; bottom: 1%; width: 58%; --r: -5deg; }
+.mb-close { position: absolute; z-index: 8; bottom: 28px; left: 50%; translate: -50% 0; padding: 10px 18px; border-radius: 999px; border: 0; background: #EBE1D5; color: #232966; font: 500 13px var(--sans); cursor: pointer; }
+.mb-close:hover { background: #D9824E; }
+
+@media (max-width: 760px) {
+  .wall { gap: 18px; transform: translate(-50%, -50%) rotate(-18deg) scale(.72); }
+  .matches.opened .wall { transform: translate(-50%, -50%) rotate(-18deg) scale(.76); }
+  .mainbox { width: 160px; }
+  /* phones: the sleeve sits on top, the drawer slides down out of it */
+  .mb-stage { padding: 84px 16px 76px; }
+  .mb-open { width: 92vw; aspect-ratio: auto; height: min(calc(100vh - 170px), 640px); }
+  .big-sleeve { left: 50%; height: auto; width: 44%; translate: -50% 0; }
+  .big-drawer { left: 50%; top: 2%; height: auto; width: min(80vw, calc((min(calc(100vh - 170px), 640px) - 54vw) * .785)); translate: -50% 0; opacity: 0; transition: transform .9s cubic-bezier(.22,1,.36,1) .25s, opacity .3s .25s; }
+  .mb-stage.on .big-drawer { transform: translateY(51vw); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mcol, .mainbox .ring { animation: none; }
+}

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://wevvvgbkzoodelvadrlq.supabase.co wss://wevvvgbkzoodelvadrlq.supabase.co https://cdn.jsdelivr.net; img-src 'self' data: https://*.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>Studio admin · Stydio</title>
+<script src="js/admin-theme.js?v=20261113110417"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400..700&display=swap" rel="stylesheet">
+<!-- the logo's & is Fraunces italic; only that one glyph is loaded -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&text=%26&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css?v=20261113110417">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=20261113110417">
+</head>
+<body>
+<!-- Studio admin: requests, clients and conversations. Only admins get data back (row level security);
+     everyone else is sent to My projects. All screens are drawn by js/admin.js. -->
+<header class="bar">
+  <a class="brand" href="#/dashboard" aria-label="Studio admin home">
+    <span class="mark"><svg viewBox="89.8 -670.9 812 689" aria-hidden="true"><path fill="currentColor" d="M901.9-670.9L901.9-257.8Q901.9-192.4 869.6-141.1Q837.4-89.8 778.1-54.4Q718.8-19.0 634.5-0.5Q550.3 18.1 445.8 18.1L445.8 18.1Q399.9 18.1 349.4 14.4Q298.8 10.7 250.7 4.2Q202.6-2.4 160.6-11.0Q118.7-19.5 89.8-29.8L89.8-29.8L89.8-189.0Q121.1-175.8 159.4-164.1Q197.8-152.3 242.7-143.3Q287.6-134.3 339.1-129.2Q390.6-124.0 448.2-124.0L448.2-124.0Q502.4-124.0 543.7-130.4Q585.0-136.7 615.2-147.5Q645.5-158.2 665.5-172.1Q685.5-186.0 697.8-200.9Q710.0-215.8 715.1-230.5Q720.2-245.1 720.2-257.8L720.2-257.8L720.2-316.9Q670.4-280.3 601.6-256.6Q532.7-232.9 444.8-232.9L444.8-232.9Q342.8-232.9 274.7-252.7Q206.5-272.5 165.5-309.8Q124.5-347.2 107.2-400.9Q89.8-454.6 89.8-522.0L89.8-522.0L89.8-670.9L272.0-670.9L272.0-540.0Q272.0-500.5 282.5-469.7Q293.0-439.0 315.7-418.2Q338.4-397.5 374.5-386.7Q410.6-376.0 461.9-376.0L461.9-376.0Q505.4-376.0 544.2-386.7Q583.0-397.5 615.7-415.0Q648.4-432.6 674.8-455.1Q701.2-477.5 720.2-501.0L720.2-501.0L720.2-670.9L901.9-670.9Z"/></svg></span>
+    <span><b>Stydio</b><small>Studio admin</small></span>
+  </a>
+  <nav class="tabs" id="tabs" aria-label="Admin sections">
+    <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+    <a href="#/projects" data-route="projects">Projects <span class="count" id="c-projects">0</span></a>
+    <a href="#/messages" data-route="messages">Messages <span class="count" id="c-messages">0</span></a>
+    <a href="#/clients" data-route="clients">Clients</a>
+    <a href="#/reviews" data-route="reviews">Reviews <span class="count" id="c-reviews">0</span></a>
+  </nav>
+  <div class="right">
+    <button class="icon-btn" id="bell" type="button" aria-label="Requests that need a reply"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="dot hidden" id="bellDot"></span></button>
+    <div class="team" id="team" aria-label="Studio team"></div>
+    <span id="me" class="av me"></span>
+  </div>
+</header>
+
+<nav class="dock" aria-label="Tools">
+  <button type="button" id="d-search" aria-label="Search (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <button type="button" id="d-inbox" aria-label="Needs a reply"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 13h4l2 3h4l2-3h4"/><path d="M5 5h14l1 8v6H4v-6z"/></svg><span class="badge hidden" id="d-badge"></span></button>
+  <button type="button" id="d-refresh" aria-label="Refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
+  <hr>
+  <a href="./" aria-label="Open the website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></a>
+  <button type="button" id="d-theme" aria-label="Switch light or dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+  <button type="button" id="d-out" aria-label="Sign out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h4v16h-4"/><path d="M10 8l-4 4 4 4M6 12h10"/></svg></button>
+</nav>
+
+<main id="view"><p class="loading">Loading the studio…</p></main>
+
+<div class="scrim hidden" id="scrim"></div>
+<aside class="drawer hidden" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle"></aside>
+<div class="palette hidden" id="palette" role="dialog" aria-modal="true" aria-label="Search">
+  <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="pq" placeholder="Search requests, clients, messages…" autocomplete="off"></label>
+  <ul id="pres"></ul>
+</div>
+<script type="module" src="js/admin.js?v=20261113110417"></script>
+</body>
+</html>

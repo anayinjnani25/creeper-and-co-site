@@ -1,0 +1,41 @@
+/* What we do: four dark cards in a stepped row, one big copper icon each, so the services read at a glance. */
+.svc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start;
+  width: min(1840px, 100vw - 80px); margin-left: calc(50% - min(920px, 50vw - 40px)); }
+.svc { display: flex; flex-direction: column; min-height: 500px; padding: 26px 26px 32px; border: 1px solid var(--line); border-radius: 26px; background: var(--night-2);
+  margin-top: var(--step, 0); transition: transform .5s var(--ease), border-color .3s; }
+.svc:hover { transform: translateY(-10px); border-color: var(--tangerine); }
+.svc svg { display: block; width: 46px; height: 46px; color: var(--tangerine); margin-top: 8px; fill: currentColor; transition: transform .6s var(--ease); }
+.svc:hover svg { transform: scale(1.12); }
+.svc h3 { margin-top: auto; padding-top: 72px; font: 500 clamp(28px, 2.5vw, 38px)/1.18 var(--sans); letter-spacing: -.03em; color: var(--lilac); }
+.svc p { margin-top: 12px; color: var(--muted); font-size: 17px; line-height: 1.55; }
+
+@media (max-width: 1100px) {
+  .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .svc { min-height: 430px; }
+}
+@media (max-width: 620px) {
+  .svc-grid { grid-template-columns: 1fr; width: 100%; margin-left: 0; gap: 16px; }
+  .svc { min-height: 0; margin-top: 0; }
+  .svc h3 { padding-top: 48px; }
+}
+
+/* the add-on, a slim card under the four */
+.svc.addon { flex-direction: row; align-items: center; gap: 24px; min-height: 0; margin: 20px 0 0 calc(50% - min(920px, 50vw - 40px)); width: min(1840px, 100vw - 80px); padding: 24px 26px; }
+.svc.addon h3 { margin: 0; padding: 0; flex: 1; font-size: clamp(24px, 2.2vw, 32px); }
+.svc.addon h3 span { color: var(--tangerine); }
+.svc.addon p { margin: 0; }
+.svc.addon p a { color: var(--lilac); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+@media (max-width: 620px) {
+  .svc.addon { flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; margin-left: 0; }
+  .svc.addon h3 { flex: none; }
+}
+
+/* the heading on one line, its edges lined up with the cards below */
+.services .sec-head { width: min(1840px, 100vw - 80px); margin-left: calc(50% - min(920px, 50vw - 40px)); flex-wrap: nowrap; gap: 48px; margin-bottom: 72px; align-items: flex-end; align-items: last baseline; }
+.services .sec-head h2 { white-space: nowrap; }
+.services .sec-head h2 .w { padding-right: .12em; margin-right: -.12em; }   /* room for the italic o */
+.services .sec-head p { flex: none; width: min(360px, 40%); text-align: right; }
+@media (max-width: 620px) {
+  .services .sec-head { width: 100%; margin-left: 0; flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 40px; }
+  .services .sec-head p { width: auto; max-width: 360px; text-align: left; }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found · Stydio</title>
+<!-- GitHub Pages serves this for any missing address, at any depth, so every link here is absolute -->
+<link rel="icon" type="image/svg+xml" href="/stydio/favicon.svg?v=20261113110417">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Familjen+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&text=%26&display=swap" rel="stylesheet">
+<style>
+  :root { --night: #151946; --cream: #EBE1D5; --muted: #B4AEB8; --copper: #D9824E; }
+  * { box-sizing: border-box; margin: 0; }
+  body { min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: 32px 20px; background: radial-gradient(60% 60% at 80% 10%, rgba(217,130,78,.16), transparent 70%), var(--night); color: var(--cream); font: 16px/1.6 "Familjen Grotesk", system-ui, sans-serif; text-align: center; }
+  main { max-width: 560px; display: grid; justify-items: center; gap: 18px; }
+  img { width: 72px; height: 72px; border-radius: 16px; }
+  h1 { font: 400 clamp(88px, 22vw, 180px)/.9 Gloock, Georgia, serif; letter-spacing: -.04em; }
+  h1 em { font-family: Fraunces, Georgia, serif; font-style: italic; color: var(--copper); }
+  h2 { font: 400 clamp(26px, 5vw, 36px)/1.1 Gloock, Georgia, serif; letter-spacing: -.02em; }
+  p { color: var(--muted); max-width: 42ch; }
+  .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+  a.pill { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 999px; background: var(--cream); color: var(--night); font-weight: 600; text-decoration: none; transition: background .25s, transform .25s; }
+  a.pill:hover { background: var(--copper); transform: translateY(-2px); }
+  a.pill.ghost { background: transparent; color: var(--cream); box-shadow: inset 0 0 0 1px rgba(235,225,213,.3); }
+  a.pill.ghost:hover { box-shadow: inset 0 0 0 1px var(--copper); color: var(--copper); background: transparent; }
+  a:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<main>
+  <img src="/stydio/favicon.svg" alt="Stydio">
+  <h1>4<em>0</em>4</h1>
+  <h2>This page grew somewhere else.</h2>
+  <p>The address may be old or mistyped. Everything we do is one click away.</p>
+  <div class="row">
+    <a class="pill" href="/stydio/">Back to the studio <span aria-hidden="true">→</span></a>
+    <a class="pill ghost" href="/stydio/#contact">Start a project</a>
+  </div>
+</main>
+</body>
+</html>
